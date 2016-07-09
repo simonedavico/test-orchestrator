@@ -1,0 +1,12 @@
+FROM benchflow/base-images:dns-envconsul-java8_dev
+
+MAINTAINER Vincenzo FERME <info@vincenzoferme.it>
+
+ENV TEST_ORCHESTRATOR_VERSION v-dev
+
+COPY ./conf/prod.conf /app/
+
+COPY ./target/scala-2.11/benchflow-test-orchestrator.jar /app/
+COPY ./services/300-test-orchestrator.conf /apps/chaperone.d/300-test-orchestrator.conf
+
+EXPOSE 8080
