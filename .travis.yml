@@ -28,9 +28,9 @@ before_install:
   - export java_path="/usr/lib/jvm/java-8-oracle/jre/bin/java"
   # The following line fails the build when language: scala with the following error:
   # "update-alternatives: error: error creating symbolic link `/etc/alternatives/java.dpkg-tmp': Permission denied" 
-  # - update-alternatives --set java $java_path
+  - sudo update-alternatives --set java $java_path
   # TODO: understando how to resolve the previous error, for now we manually change the java version
-  - ln -sf $java_path /usr/bin/java
+  # - ln -sf $java_path /usr/bin/java
   - java -version
 
 install:
