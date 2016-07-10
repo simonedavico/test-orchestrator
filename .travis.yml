@@ -26,11 +26,9 @@ before_install:
   - export JAVA_HOME="/usr/lib/jvm/java-8-oracle"
   - export PATH="$PATH:/usr/lib/jvm/java-8-oracle/bin"
   - export java_path="/usr/lib/jvm/java-8-oracle/jre/bin/java"
-  # The following line fails the build when language: scala with the following error:
+  # We added sudo to the following line because otherwise it fails the build when language: scala with the following error:
   # "update-alternatives: error: error creating symbolic link `/etc/alternatives/java.dpkg-tmp': Permission denied" 
   - sudo update-alternatives --set java $java_path
-  # TODO: understando how to resolve the previous error, for now we manually change the java version
-  # - ln -sf $java_path /usr/bin/java
   - java -version
 
 install:
@@ -42,7 +40,7 @@ script:
 
 before_deploy:
   # Clean the v-dev release and tag we are using to release development version in CI
-  - sudo wget https://github.com/benchflow/benchflow/raw/dev/ci/clean_v-dev_release.sh -O /usr/bin/clean_v-dev_release.sh
+  - sudo wget https://github.com/benchflow/devops/raw/dev/ci/clean_v-dev_release.sh -O /usr/bin/clean_v-dev_release.sh
   - sudo chmod +x /usr/bin/clean_v-dev_release.sh
   - export REPO_NAME=test-orchestrator
   - /usr/bin/clean_v-dev_release.sh
